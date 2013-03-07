@@ -1,65 +1,65 @@
 # Fundamentos de Git #
 
-Si sólo puedes leer un capítulo para empezar a trabajar con Git, es éste. Este capítulo cubre todos los comandos básicos que necesitas para hacer la gran mayoría de las cosas a las que vas a dedicar tu tiempo en Git. Al final del capítulo, deberías ser capaz de configurar e inicializar un repositorio, comenzar y detener el seguimiento de archivos, y preparar (stage) y confirmar (commit) cambios. También te enseñaremos a configurar Git para que ignore ciertos archivos y patrones, cómo deshacer errores rápida y fácilmente, cómo navegar por la historia de tu proyecto y ver cambios entre confirmaciones, y cómo enviar (push) y recibir (pull) de repositorios remotos.
+Si sólo puede leer un capítulo para empezar a trabajar con Git, es éste. Este capítulo cubre todos los comandos básicos que necesita para hacer la gran mayoría de las cosas a las que va a dedicar su tiempo en Git. Al finalizar el capítulo, debería ser capaz de configurar e inicializar un repositorio, comenzar y detener el seguimiento de los archivos, y preparar (stage) y confirmar (commit) los cambios. También le enseñaremos a configurar Git para que ignore ciertos archivos y patrones, cómo deshacer errores rápida y fácilmente, cómo navegar por la historia de su proyecto y ver cambios entre las confirmaciones, y cómo enviar (push) y recibir (pull) de los repositorios remotos.
 
-## Obteniendo un repositorio Git ##
+## Obtener un repositorio Git ##
 
-Puedes obtener un proyecto Git de dos maneras. La primera toma un proyecto o directorio existente y lo importa en Git. La segunda clona un repositorio Git existente desde otro servidor.
+Puede obtener un proyecto Git de dos maneras. La primera forma es tomar un proyecto o directorio existente e importarlo a Git. La segunda es clonar un repositorio Git ya existente desde otro servidor.
 
-### Inicializando un repositorio en un directorio existente ###
+### Inicializar un repositorio en un directorio existente ###
 
-Si estás empezando el seguimiento en Git de un proyecto existente, necesitas ir al directorio del proyecto y escribir:
+Si comienza el seguimiento en Git de un proyecto existente, necesita ir al directorio del proyecto y teclear:
 
 	$ git init
 
-Esto crea un nuevo subdirectorio llamado .git que contiene todos los archivos necesarios del repositorio — un esqueleto de un repositorio Git. Todavía no hay nada en tu proyecto que esté bajo seguimiento. (Véase el Capítulo 9 para obtener más información sobre qué archivos están contenidos en el directorio `.git` que acabas de crear.)
+Esto crea un nuevo subdirectorio llamado .git que contiene todos los archivos necesarios del repositorio — un esqueleto de un repositorio Git. En este momento, todavía no se está realizando un seguimiento de nada. (Véase el Capítulo 9 para obtener más información sobre qué archivos están contenidos en el directorio `.git` que acaba de crear.)
 
-Si deseas empezar a controlar versiones de archivos existentes (a diferencia de un directorio vacío), probablemente deberías comenzar el seguimiento de esos archivos y hacer una confirmación inicial. Puedes conseguirlo con unos pocos comandos `git add` para especificar qué archivos quieres controlar, seguidos de un `commit` para confirmar los cambios:
+Si desea empezar a controlar las versiones de los archivos existentes (lo opuesto a un directorio vacío), probablemente debería comenzar el seguimiento de esos archivos y hacer una confirmación inicial. Puede conseguirlo con unos pocos comandos 'git add' para especificar qué archivos quiere controlar, seguido de un 'commit' para confirmar los cambios:
 
 	$ git add *.c
 	$ git add README
 	$ git commit –m 'versión inicial del proyecto'
 
-Veremos lo que hacen estos comandos dentro de un minuto. En este momento, tienes un repositorio Git con archivos bajo seguimiento, y una confirmación inicial.
+Repasaremos lo que hacen estos comandos dentro de un minuto. En este momento, tiene un repositorio Git con archivos bajo seguimiento, y una confirmación inicial.
 
-### Clonando un repositorio existente ###
+### Clonar un repositorio que existe ###
 
-Si deseas obtener una copia de un repositorio Git existente —por ejemplo, un proyecto en el que te gustaría contribuir— el comando que necesitas es `git clone`. Si estás familizarizado con otros sistemas de control de versiones como Subversion, verás que el comando es `clone` y no `checkout`. Es una distinción importante, ya que Git recibe una copia de casi todos los datos que tiene el servidor. Cada versión de cada archivo de la historia del proyecto es descargado cuando ejecutas `git clone`. De hecho, si el disco de tu servidor se corrompe, puedes usar cualquiera de los clones en cualquiera de los clientes para devolver al servidor al estado en el que estaba cuando fue clonado (puede que pierdas algunos *hooks* del lado del servidor y demás, pero toda la información versionada estaría ahí —véase el Capítulo 4 para más detalles—).
+Si desea obtener una copia de un repositorio Git que existe —por ejemplo, un proyecto en el que le gustaría contribuir— el comando que necesita es 'git clone'. Si está familiarizado con otros sistemas de control de versiones como Subversion, se dará cuenta que el comando es 'clone' y no 'checkout'. Esto es una diferencia importante --- Git recibe una copia de casi todos los datos que tiene el servidor. Todas las versiones de cada archivo en la historia del proyecto son descargadas cuando ejecuta 'git clone'. De hecho, si el disco de su servidor se corrompe, puede usar cualquiera de los clones en cualquier cliente para devolver el servidor al estado en el que estaba cuando fue clonado (puede que pierda algunos *hooks* del lado del servidor y demás, pero toda la información versionada estará ahí —véa el Capítulo 4 para más detalles).
 
-Puedes clonar un repositorio con `git clone [url]`. Por ejemplo, si quieres clonar la librería Ruby llamada Grit, harías algo así:
+Clona un repositorio con 'git clone [url]'. Por ejemplo, si quiere clonar la librería Ruby llamada Grit, puede hacerlo así:
 
 	$ git clone git://github.com/schacon/grit.git
 
-Esto crea un directorio llamado "grit", inicializa un directorio `.git` en su interior, descarga toda la información de ese repositorio, y saca una copia de trabajo de la última versión. Si te metes en el nuevo directorio `grit`, verás que están los archivos del proyecto, listos para ser utilizados. Si quieres clonar el repositorio a un directorio con otro nombre que no sea grit, puedes especificarlo con la siguiente opción de línea de comandos:
+Esto crea un directorio llamado "grit", inicializa un directorio`.git` en su interior, descarga toda la información de ese repositorio, y despliega una copia de trabajo de la última versión. Si accede al nuevo directorio `grit`, verá que están los archivos del proyecto, listos para trabajar sobre ellos o usarlos. Si quiere clonar el repositorio a un directorio con otro nombre que no sea grit, puede especificarlo como opción en la línea de comando:
 
 	$ git clone git://github.com/schacon/grit.git mygrit
 
-Ese comando hace lo mismo que el anterior, pero el directorio de destino se llamará mygrit.
+Este comando hace lo mismo que el anterior, pero el directorio de destino se llamará mygrit.
 
-Git te permite usar distintos protocolos de transferencia. El ejemplo anterior usa el protocolo `git://`, pero también te puedes encontrar con `http(s)://` o `usuario@servidor:/ruta.git`, que utiliza el protocolo de transferencia SSH. En el Capítulo 4 se introducirán todas las opciones disponibles a la hora de configurar el acceso a tu repositorio Git, y las ventajas e inconvenientes de cada una.
+Git le permite usar distintos protocolos de transferencia. El ejemplo anterior usa el protocolo `git://`, pero también se puede encontrar con `http(s)://` o `usuario@servidor:/ruta.git`, que utiliza el protocolo de transferencia SSH. En el Capítulo 4 se introducirán todas las opciones disponibles a la hora de configurar el acceso a su repositorio Git, y las ventajas e inconvenientes de cada una.
 
-## Guardando cambios en el repositorio ##
+## Guardar cambios en el repositorio ##
 
-Tienes un repositorio Git completo, y una copia de trabajo de los archivos de ese proyecto. Necesitas hacer algunos cambios, y confirmar instantáneas de esos cambios a tu repositorio cada vez que el proyecto alcance un estado que desees grabar.
+Usted tiene un repositorio Git genunino, y un despliegue (checkout) o copia local de trabajo de los archivos de ese proyecto (checkout). Necesita hacer algunos cambios, y confirmar 'instantáneas' (commit snapshots) de esos cambios a su repositorio cada vez que el proyecto alcanza un estado que quiere grabar.
 
-Recuerda que cada archivo de tu directorio de trabajo puede estar en uno de estos dos estados: bajo seguimiento (tracked), o sin seguimiento (untracked). Los archivos bajo seguimiento son aquellos que existían en la última instantánea; pueden estar sin modificaciones, modificados, o preparados. Los archivos sin seguimiento son todos los demás —cualquier archivo de tu directorio que no estuviese en tu última instantánea ni está en tu área de preparación—. La primera vez que clonas un repositorio, todos tus archivos estarán bajo seguimiento y sin modificaciones, ya que los acabas de copiar y no has modificado nada.
+Recuerde que cada archivo de su directorio de trabajo puede estar en uno de estos dos estados: bajo seguimiento (tracked), o sin seguimiento (untracked). Los archivos bajo seguimiento son aquellos que existían en la última instantánea; pueden estar sin modificaciones (unmodified), modificados (modified), o preparados. Los archivos sin seguimiento son todos los demás —cualquier archivo de su directorio que no estuviese en su última instantánea ni está en su área de preparación—. La primera vez que clona un repositorio, todos sus archivos estarán bajo seguimiento y sin modificaciones, porque acaba de despluegar una copia de ellos y no ha modificado ninguno.
 
-A medida que editas archivos, Git los ve como modificados, porque los has cambiado desde tu última confirmación. Preparas estos archivos modificados y luego confirmas todos los cambios que hayas preparado, y el ciclo se repite. Este proceso queda ilustrado en la Figura 2-1.
+Mientras edita los archivos, Git  los ve como modificados, porque los ha cambiado desde su última confirmación (last commit). Usted prepara para confirmar (stage) estos archivos modificados y luego confirma (commit)todos los cambios que haya preparado, y el ciclo se repite. Este proceso queda ilustrado en la Figura 2-1.
 
 Insert 18333fig0201.png
 Figura 2-1. El ciclo de vida del estado de tus archivos.
 
-### Comprobando el estado de tus archivos ###
+### Comprobar el estado de sus archivos ###
 
-Tu principal herramienta para determinar qué archivos están en qué estado es el comando `git status`. Si ejecutas este comando justo después de clonar un repositorio, deberías ver algo así:
+Su principal herramienta para determinar qué archivos están y en qué estado, es el comando 'git status'. Si ejecuta este comando justo después de clonar un repositorio, debería ver algo así:
 
 	$ git status
 	# On branch master
 	nothing to commit (working directory clean)
 
-Esto significa que tienes un directorio de trabajo limpio —en otras palabras, no tienes archivos bajo seguimiento y modificados—. Git tampoco ve ningún archivo que no esté bajo seguimiento, o estaría listado ahí. Por último, el comando te dice en qué rama estás. Por ahora, esa rama siempre es "master", que es la predeterminada. No te preocupes de eso por ahora, el siguiente capítulo tratará los temas de las ramas y las referencias en detalle.
+Esto significa que tiene un directorio de trabajo limpio —en otras palabras, no hay archivos bajo seguimiento y modificados—. Git tampoco ve ningún archivo  sin seguimiento, o estos se listarían aquí. Por último, el comando le dice en qué rama están. Por ahora, esa rama siempre es "master", que es la predeterminada. No se preocupe de eso por ahora, el siguiente capítulo tratará los temas de las ramas y las referencias en detalle.
 
-Digamos que añades un nuevo archivo a tu proyecto, un sencillo archivo README. Si el archivo no existía y ejecutas `git status`, verás tus archivos sin seguimiento así:
+Digamos que añade un nuevo archivo a su proyecto, un sencillo archivo README. Si el archivo no existía y ejecuta 'git status', verá su archivo sin seguimiento así:
 
 	$ vim README
 	$ git status
@@ -70,15 +70,15 @@ Digamos que añades un nuevo archivo a tu proyecto, un sencillo archivo README. 
 	#	README
 	nothing added to commit but untracked files present (use "git add" to track)
 
-Puedes ver que tu nuevo archivo README aparece bajo la cabecera “Archivos sin seguimiento” (“Untracked files”) de la salida del comando. Sin seguimiento significa básicamente que Git ve un archivo que no estaba en la instantánea anterior; Git no empezará a incluirlo en las confirmaciones de tus instantáneas hasta que se lo indiques explícitamente. Lo hace para que no incluyas accidentalmente archivos binarios generados u otros archivos que no tenías intención de incluir. Sí que quieres incluir el README, así que vamos a iniciar el seguimiento del archivo.
+Puede ver que su nuevo archivo README aparece bajo la cabecera “Archivos sin seguimiento” (“Untracked files”) de la salida del comando. Sin seguimiento significa básicamente que Git ve un archivo que no estaba en la instantánea anterior (commit); Git no empezará a incluirlo en las confirmaciones de sus instantáneas (commit snapshots) hasta que se lo indique explícitamente. Lo hace para que no incluya accidentalmente archivos binarios generados u otros archivos que no tenía intención de incluir. Usted quiere empezar a incluir  README, pues vamos a empezar a seguir al archivo.
 
-### Seguimiento de nuevos archivos ###
+### Seguir los archivos nuevos ###
 
-Para empezar el seguimiento de un nuevo archivo se usa el comando `git add`. Iniciaremos el seguimiento del archivo README ejecutando esto:
+Para empezar a seguir un archivo nuevo use el comando 'git add'. Para empezar a seguir el archivo README ejecute esto:
 
 	$ git add README
 
-Si vuelves a ejecutar el comando `git status`, verás que tu README está ahora bajo seguimiento y preparado:
+Si vuelve a ejecutar el comando 'git status', verÁ que su README está ahora bajo seguimiento y preparado:
 
 	$ git status
 	# On branch master
@@ -88,9 +88,9 @@ Si vuelves a ejecutar el comando `git status`, verás que tu README está ahora 
 	#	new file:   README
 	#
 
-Puedes ver que está preparado porque aparece bajo la cabecera “Cambios a confirmar” (“Changes to be committed”). Si confirmas ahora, la versión del archivo en el momento de ejecutar `git add` será la que se incluya en la instantánea. Recordarás que cuando antes ejecutaste `git init`, seguidamente ejecutaste `git add (archivos)`. Esto era para iniciar el seguimiento de los archivos de tu directorio. El comando `git add` recibe la ruta de un archivo o de un directorio; si es un directorio, añade todos los archivos que contenga de manera recursiva.
+Puede ver que está preparado porque aparece bajo la cabecera “Cambios a confirmar” (“Changes to be committed”). Si confirma (commit) ahora, la versión del archivo en el momento en que ejecutó `git add` es la que se estará en el histórico de instantáneas. Puede que recuerde que cuando usted ejecutó antes 'git init`, seguidamente ejecutó  'git add (archivos)`. Esto fue para empezar a seguir los archivos de su directorio. El comando 'git add' lleva el nombre de la ruta de un archivo o de un directorio; si es un directorio, el comando añade todos los archivos que contenga de forma recursiva.
 
-### Preparando archivos modificados ###
+### Preparar para confirmar archivos modificados ###
 
 Vamos a modificar un archivo que estuviese bajo seguimiento. Si modificas el archivo `benchmarks.rb` que estaba bajo seguimiento, y ejecutas el comando `status` de nuevo, verás algo así:
 
